@@ -27,7 +27,7 @@ cd textmagic
 npm install
 ```
 
-3. Запустите проект в режиме разработки:
+3. Запустите build:
 
 ```
 npm run build
