@@ -1,15 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { PopupModalProps } from '../../types/index';
 import { notifyService } from '../../services/notificationService';
-import './styles.css';
+import { FaCopy, FaTimes, FaPaste } from 'react-icons/fa';
+import {
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalHeaderTitle,
+  ModalHeaderIcon,
+  ModalCloseIcon,
+  ModalBody,
+  LoadingContainer,
+  LoadingSpinner,
+  LoadingText,
+  ResultTextarea,
+  ButtonContainer,
+  CloseButton,
+  CopyButton,
+  InsertButton,
+  ButtonIcon
+} from './styles';
 
 const PopupModal: React.FC<PopupModalProps> = ({ isOpen, onClose, onInsert, content, loading }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   
   useEffect(() => {
     if (isOpen) {
       setIsVisible(true);
+      setIsClosing(false);
     } else {
+      setIsClosing(true);
       const timeout = setTimeout(() => {
         setIsVisible(false);
       }, 300);
@@ -56,45 +77,37 @@ const PopupModal: React.FC<PopupModalProps> = ({ isOpen, onClose, onInsert, cont
     e.preventDefault();
     e.stopPropagation();
     
-    // Добавляем класс для анимации исчезновения
-    const modalContent = document.querySelector('.modal-content');
-    if (modalContent) {
-      modalContent.classList.add('modal-closing');
-      // Закрываем после завершения анимации
-      setTimeout(() => {
-        onClose();
-      }, 280);
-    } else {
+    setIsClosing(true);
+    setTimeout(() => {
       onClose();
-    }
+    }, 280);
   };
 
   return (
-    <div className={`modal-overlay ${!isOpen ? 'modal-overlay-closing' : ''}`} onClick={handleClose}>
-      <div 
-        className={`modal-content ${!isOpen ? 'modal-closing' : ''}`}
+    <ModalOverlay onClick={handleClose} isClosing={isClosing}>
+      <ModalContent
         onClick={(e) => {
           e.stopPropagation();
         }}
+        isClosing={isClosing}
       >
-        <div className="modal-header">
-          <div className="modal-header-title">
-            <span className="modal-header-icon">📝</span>
+        <ModalHeader>
+          <ModalHeaderTitle>
+            <ModalHeaderIcon><FaCopy /></ModalHeaderIcon>
             {loading ? 'Обработка текста' : 'Результат обработки'}
-          </div>
-          <span className="modal-close-icon" onClick={handleClose}>✕</span>
-        </div>
+          </ModalHeaderTitle>
+          <ModalCloseIcon onClick={handleClose}><FaTimes /></ModalCloseIcon>
+        </ModalHeader>
         
-        <div className="modal-body">
+        <ModalBody>
           {loading ? (
-            <div className="loading-container">
-              <div className="loading-spinner"></div>
-              <p className="loading-text">Обработка текста...</p>
-            </div>
+            <LoadingContainer>
+              <LoadingSpinner />
+              <LoadingText>Обработка текста...</LoadingText>
+            </LoadingContainer>
           ) : (
             <>
-              <textarea
-                className="result-textarea"
+              <ResultTextarea
                 value={content}
                 onChange={(e) => {
                   // Позволяем редактировать текст
@@ -104,59 +117,26 @@ const PopupModal: React.FC<PopupModalProps> = ({ isOpen, onClose, onInsert, cont
                 onClick={(e) => {
                   (e.target as HTMLTextAreaElement).select();
                 }}
-                style={{
-                  width: '100%',
-                  backgroundColor: '#f7f7f7',
-                  color: '#333',
-                  border: '2px solid #d0d0d0',
-                  fontWeight: 500
-                }}
               />
-              <div className="button-container">
-                <button 
-                  className="close-button"
-                  onClick={handleClose}
-                >
-                  <span className="button-icon">✕</span>
+              <ButtonContainer>
+                <CloseButton onClick={handleClose}>
+                  <ButtonIcon><FaTimes /></ButtonIcon>
                   Закрыть
-                </button>
-                <button 
-                  className="copy-button"
-                  onClick={copyText}
-                >
-                  <span className="button-icon">📋</span>
+                </CloseButton>
+                <CopyButton onClick={copyText}>
+                  <ButtonIcon><FaCopy /></ButtonIcon>
                   Копировать
-                </button>
-                <button 
-                  className="insert-button"
-                  onClick={handleInsert}
-                >
-                  <span className="button-icon">↪</span>
+                </CopyButton>
+                <InsertButton onClick={handleInsert}>
+                  <ButtonIcon><FaPaste /></ButtonIcon>
                   Вставить
-                </button>
-              </div>
+                </InsertButton>
+              </ButtonContainer>
             </>
           )}
-        </div>
-      </div>
-      {/* Добавляем анимации */}
-      <style>{`
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-        
-        .modal-overlay-closing {
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-        
-        .modal-closing {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-      `}</style>
-    </div>
+        </ModalBody>
+      </ModalContent>
+    </ModalOverlay>
   );
 };
 

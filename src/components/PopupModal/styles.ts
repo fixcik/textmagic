@@ -1,4 +1,23 @@
-.modal-overlay {
+import styled, { keyframes, css } from 'styled-components';
+
+// Анимации
+const spin = keyframes`
+  to { transform: rotate(360deg); }
+`;
+
+const modalFadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+// Стили компонентов
+export const ModalOverlay = styled.div<{ isClosing: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -13,9 +32,14 @@
   cursor: pointer;
   backdrop-filter: blur(3px);
   transition: all 0.3s ease;
-}
+  
+  ${props => props.isClosing && css`
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  `}
+`;
 
-.modal-content {
+export const ModalContent = styled.div<{ isClosing: boolean }>`
   background-color: white;
   padding: 0;
   border-radius: 12px;
@@ -29,21 +53,16 @@
   position: relative;
   cursor: default;
   overflow: hidden;
-  animation: modalFadeIn 0.3s ease;
-}
-
-@keyframes modalFadeIn {
-  from {
+  animation: ${modalFadeIn} 0.3s ease;
+  
+  ${props => props.isClosing && css`
     opacity: 0;
     transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  `}
+`;
 
-.modal-header {
+export const ModalHeader = styled.div`
   background: linear-gradient(45deg, #8a4baf, #9061F9);
   color: white;
   padding: 16px 20px;
@@ -51,56 +70,56 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
+`;
 
-.modal-header-title {
+export const ModalHeaderTitle = styled.div`
   display: flex;
   align-items: center;
   font-size: 16px;
-}
+`;
 
-.modal-header-icon {
+export const ModalHeaderIcon = styled.span`
   margin-right: 10px;
   font-size: 18px;
-}
+`;
 
-.modal-close-icon {
+export const ModalCloseIcon = styled.span`
   cursor: pointer;
   font-size: 20px;
   opacity: 0.8;
   transition: opacity 0.2s;
-}
+  
+  &:hover {
+    opacity: 1;
+  }
+`;
 
-.modal-close-icon:hover {
-  opacity: 1;
-}
-
-.modal-body {
+export const ModalBody = styled.div`
   padding: 20px;
-}
+`;
 
-.loading-container {
+export const LoadingContainer = styled.div`
   padding: 40px;
   text-align: center;
-}
+`;
 
-.loading-spinner {
+export const LoadingSpinner = styled.div`
   width: 36px;
   height: 36px;
   border: 3px solid rgba(144, 97, 249, 0.2);
   border-radius: 50%;
   border-top-color: #9061F9;
-  animation: spin 1s linear infinite;
+  animation: ${spin} 1s linear infinite;
   margin: auto;
-}
+`;
 
-.loading-text {
+export const LoadingText = styled.p`
   margin-top: 20px;
   color: #555;
   font-weight: 500;
-}
+`;
 
-.result-textarea {
+export const ResultTextarea = styled.textarea`
   width: 100%;
   box-sizing: border-box;
   min-height: 180px;
@@ -120,26 +139,24 @@
   background-color: #f7f7f7;
   color: #333;
   font-weight: 500;
-}
+  
+  &:focus {
+    outline: none;
+    border-color: #9061F9;
+    box-shadow: 0 0 0 2px rgba(144, 97, 249, 0.2);
+  }
+`;
 
-.result-textarea:focus {
-  outline: none;
-  border-color: #9061F9;
-  box-shadow: 0 0 0 2px rgba(144, 97, 249, 0.2);
-}
-
-.button-container {
+export const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 12px;
   pointer-events: auto;
   z-index: 2147483646;
   margin-top: 10px;
-}
+`;
 
-.close-button,
-.copy-button,
-.insert-button {
+const Button = styled.button`
   padding: 12px 20px;
   border: none;
   border-radius: 6px;
@@ -148,50 +165,38 @@
   font-weight: 500;
   pointer-events: auto;
   transition: background-color 0.2s;
-  text-transform: none;
-  letter-spacing: 0.5px;
-  box-shadow: none;
   display: flex;
   align-items: center;
   justify-content: center;
-}
+  color: white;
+`;
 
-.close-button {
+export const CloseButton = styled(Button)`
   background-color: #5c6570;
-  color: white;
-  border: none;
-}
+  
+  &:hover {
+    background-color: #4a5258;
+  }
+`;
 
-.close-button:hover {
-  background-color: #4a5258;
-  transform: none;
-  box-shadow: none;
-}
-
-.copy-button {
+export const CopyButton = styled(Button)`
   background-color: #ef5350;
-  color: white;
-}
+  
+  &:hover {
+    background-color: #d32f2f;
+  }
+`;
 
-.copy-button:hover {
-  background-color: #d32f2f;
-  transform: none;
-  box-shadow: none;
-}
-
-.insert-button {
+export const InsertButton = styled(Button)`
   background-color: #4a9cef;
-  color: white;
-}
+  
+  &:hover {
+    background-color: #3b7bbf;
+  }
+`;
 
-.insert-button:hover {
-  background-color: #3b7bbf;
-  transform: none;
-  box-shadow: none;
-}
-
-.button-icon {
+export const ButtonIcon = styled.span`
   display: inline-block;
   margin-right: 10px;
   font-size: 18px;
-} 
+`; 
