@@ -1,0 +1,249 @@
+.popup-container {
+  width: 400px;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #333;
+  background-color: #fff;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  background: linear-gradient(45deg, #8a4baf, #9061F9);
+  color: white;
+}
+
+.header-icon-wrapper {
+  width: 36px;
+  height: 36px;
+  margin-right: 12px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.magic-wand-icon {
+  width: 28px;
+  height: 28px;
+}
+
+h1 {
+  font-size: 20px;
+  margin: 0;
+  font-weight: 600;
+  color: white;
+}
+
+h2 {
+  font-size: 17px;
+  margin: 0 0 16px 0;
+  color: #444;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+}
+
+.input-wrapper {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+  border-color: #9061F9;
+  box-shadow: 0 0 0 3px rgba(144, 97, 249, 0.2);
+}
+
+.save-button {
+  display: block;
+  width: 100%;
+  background-color: #9061F9;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.save-button:hover {
+  background-color: #7c4fe0;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.save-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.save-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.instructions {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+}
+
+.steps-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.steps-list li {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Стили для вкладок */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
+  margin: 0;
+}
+
+.tab {
+  flex: 1;
+  background-color: transparent;
+  color: #666;
+  padding: 14px 16px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.2s;
+}
+
+.tab.active {
+  color: #9061F9;
+  border-bottom-color: #9061F9;
+  background-color: white;
+}
+
+.tab:hover:not(.active) {
+  background-color: #f0f0f0;
+  color: #444;
+}
+
+.tab-content {
+  padding: 20px;
+}
+
+/* Стили для секции промптов */
+.prompts-container {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.prompt-section {
+  margin-bottom: 1px;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: 0;
+}
+
+.prompt-section:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.prompt-section h3 {
+  margin: 0;
+  padding: 14px 16px;
+  font-size: 15px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.2s;
+}
+
+.prompt-section h3:hover {
+  background-color: #f0f0f0;
+}
+
+.prompt-icon {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.toggle-icon {
+  font-size: 12px;
+  color: #777;
+}
+
+.prompt-inputs {
+  padding: 16px;
+  background-color: white;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 80px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+textarea:focus {
+  border-color: #9061F9;
+  box-shadow: 0 0 0 3px rgba(144, 97, 249, 0.2);
+}
+
+.prompt-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #777;
+  font-style: italic;
+} 
